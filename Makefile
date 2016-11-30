@@ -1,3 +1,8 @@
+
+IMAGE_NAME=$(shell grep -A0 'imageName:' project.yml | tail -n1 | awk '{print $$2}')
+VERSION=$(shell grep -A0 'version:' project.yml | tail -n1 | awk '{print $$2}')
+PART ?= "image_version"
+
 all: build
 
 help:
@@ -11,17 +16,17 @@ help:
 	@echo "   5. make purge       - stop and remove the container"
 
 build:
-	@docker build --tag=sameersbn/redmine .
+	@docker build --tag=${IMAGE_NAME} .
 
 release:
-	@docker build --tag=sameersbn/redmine:$(shell cat VERSION) .
+	@docker build --tag=${IMAGE_NAME}:${VERSION} .
 
 quickstart:
 	@echo "Starting redmine..."
 	@docker run --name=redmine-demo -d -p 10080:80 \
 		-v /var/run/docker.sock:/run/docker.sock \
 		-v $(shell which docker):/bin/docker \
-		sameersbn/redmine:latest >/dev/null
+		devopskube/redmine:latest >/dev/null
 	@echo "Please be patient. This could take a while..."
 	@echo "Redmine will be available at http://localhost:10080"
 	@echo "Type 'make logs' for the logs"
@@ -36,3 +41,10 @@ purge: stop
 
 logs:
 	@docker logs -f redmine-demo
+
+.PHONY: bump
+bump:
+	@echo "Bumping Version"
+	bumpversion ${PART} 
+#	git push
+#	git push origin --tags

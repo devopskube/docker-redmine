@@ -1,5 +1,13 @@
 # Changelog
 
+**3.3.1-1**
+- fork to devopskube
+- add .bumpversion.cfg and project.yml and Jenkinsfile
+- add plugins
+
+**3.3.1**
+- redmine: upgrade to v.3.3.1
+
 **3.3.0**
 - redmine: upgrade to v.3.3.0
 
@@ -184,4 +192,3 @@
 **v2.4.3**
 - upgraded to redmine-2.4.3
 - generate random root password
-
