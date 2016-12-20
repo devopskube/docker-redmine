@@ -45,6 +45,6 @@ logs:
 .PHONY: bump
 bump:
 	@echo "Bumping Version"
-	bumpversion ${PART} 
-#	git push
-#	git push origin --tags
+	bumpversion ${PART}
+	git push
+	git push origin --tags
