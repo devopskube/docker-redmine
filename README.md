@@ -1,5 +1,3 @@
-[![Docker Repository on Quay.io](https://quay.io/repository/sameersbn/redmine/status "Docker Repository on Quay.io")](https://quay.io/repository/sameersbn/redmine)
-
 # Table of Contents
 
 - [Introduction](#introduction)
@@ -54,7 +52,7 @@ Dockerfile to build a [Redmine](http://www.redmine.org/) container image.
 
 ## Version
 
-Current Version: **sameersbn/redmine:3.3.1**
+Current Version: **devopskube/redmine:3.3.1-1**
 
 *P.S.: If your installation depends on various third party plugins, please stick with 2.6.xx series to avoid breakage.*
 
