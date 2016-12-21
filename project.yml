@@ -1,5 +1,5 @@
 name: "docker-redmine"
-version: 3.3.1-0
+version: 3.3.1-1
 gitUrl: "https://api.github.com/repos/devopskube/docker-mysql/tags"
 imageName: "devopskube/redmine"
 issueProjectName: "foo"
