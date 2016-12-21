@@ -75,8 +75,7 @@ if [[ -d ${GEM_CACHE_DIR} ]]; then
 fi
 
 # install redmine-github-hook (https://github.com/koppen/redmine_github_hook)
-exec_as_redmine git clone https://github.com/koppen/redmine_github_hook.git ${REDMINE_INSTALL_DIR}/vendor/plugins/redmine_github_hook
-exec_as_redmine echo 'gem "redmine_github_hook"' > ${REDMINE_INSTALL_DIR}/Gemfile.local
+exec_as_redmine git clone https://github.com/koppen/redmine_github_hook.git ${REDMINE_INSTALL_DIR}/plugins/redmine_github_hook
 
 # Install redmine and above mentioned plugin(s)
 exec_as_redmine bundle install -j$(nproc) --without development test --path ${REDMINE_INSTALL_DIR}/vendor/bundle
