@@ -50,6 +50,13 @@
 
 Dockerfile to build a [Redmine](http://www.redmine.org/) container image.
 
+Adds the following plugins to the base Redmine Image (which is forked):
+
+* [Github Hook](https://github.com/koppen/redmine_github_hook))
+* [SCM Creator](http://projects.andriylesyuk.com/projects/scm-creator/wiki)
+
+Furthermore we are initially installing the settings.yml, so that on an initial install, only the Git SCM is enabled (this is, so that there is no realy config required, but the SCM Creator is working as expected).
+
 ## Version
 
 Current Version: **devopskube/redmine:3.3.1-2**
@@ -633,6 +640,11 @@ Below is the complete list of parameters that can be set using environment varia
 - **INCOMING_EMAIL_PRIORITY**: Name of the target priority.
 - **INCOMING_EMAIL_PRIVATE**: Create new issues as private.
 - **INCOMING_EMAIL_ALLOW_OVERRIDE**: Allow email content to override attributes specified by previous options. Value is a comma separated list of attributes. See [redmine documentation](http://www.redmine.org/projects/redmine/wiki/RedmineReceivingEmails#Fetching-emails-from-an-IMAP-server) for acceptable values.
+- **REDMINE_SCM_DIR**: The folder, in which the Git repositories are stored (Using the [SCM Creator Plugin](http://projects.andriylesyuk.com/projects/scm-creator/wiki/Configuration)). Defaults to '/home/redmine/data/git'.
+- **SCM_AUTO_CREATE**: Specifies if repositories are created automatically during project creation. Defaults to 'force'. See [SCM Creator Plugin](http://projects.andriylesyuk.com/projects/scm-creator/wiki/Configuration) for details.
+- **SCM_FORCE_REPO**: Specifies if the Repository module should be enabled on project creation. Defaults to 'true'. See [SCM Creator Plugin](http://projects.andriylesyuk.com/projects/scm-creator/wiki/Configuration) for details.
+- **SCM_DENY_DELETE**: If the deny_delete option is set to true deleting repositories created automatically by redmine is not allowed anymore. Defaults to 'true'. See [SCM Creator Plugin](http://projects.andriylesyuk.com/projects/scm-creator/wiki/Configuration) for details.
+- **MAIL_SENDER**: Initial Configuration of the Sender of the Emails. Defaults to 'redmine@example.net'.
 
 # Plugins
 

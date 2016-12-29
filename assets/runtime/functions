@@ -11,6 +11,8 @@ REDMINE_UNICORN_CONFIG="${REDMINE_INSTALL_DIR}/config/unicorn.rb"
 REDMINE_SECRET_CONFIG="${REDMINE_INSTALL_DIR}/config/initializers/secret_token.rb"
 REDMINE_MEMCACHED_CONFIG="${REDMINE_INSTALL_DIR}/config/additional_environment.rb"
 REDMINE_NGINX_CONFIG="/etc/nginx/sites-enabled/redmine"
+REDMINE_SCM_CONFIG="${REDMINE_INSTALL_DIR}/config/scm.yml"
+REDMINE_INITIAL_SETTINGS_CONFIG="${REDMINE_INSTALL_DIR}/config/settings.yml"
 
 # Read YAML file from Bash script
 # Credits: https://gist.github.com/pkuczynski/8665367
@@ -772,6 +774,11 @@ initialize_datadir() {
   mkdir -p ${REDMINE_DATA_DIR}/tmp
   chmod -R 0755 ${REDMINE_DATA_DIR}/tmp
   chown -R ${REDMINE_USER}: ${REDMINE_DATA_DIR}/tmp
+
+  # create git directory
+  mkdir -p ${REDMINE_SCM_DIR}
+  chmod -R 0755 ${REDMINE_SCM_DIR}
+  chown -R ${REDMINE_USER}: ${REDMINE_SCM_DIR}
 }
 
 generate_ssh_client_keys() {
@@ -802,6 +809,8 @@ install_configuration_templates() {
   install_template ${REDMINE_USER}: redmine/database.yml ${REDMINE_DATABASE_CONFIG} 0640
   install_template ${REDMINE_USER}: redmine/unicorn.rb ${REDMINE_UNICORN_CONFIG} 0644
   install_template ${REDMINE_USER}: redmine/secret_token.rb ${REDMINE_SECRET_CONFIG} 0644
+  install_template ${REDMINE_USER}: redmine/scm.yml ${REDMINE_SCM_CONFIG} 0644
+  install_template ${REDMINE_USER}: redmine/settings.yml ${REDMINE_INITIAL_SETTINGS_CONFIG} 0644
 
   if [[ ${REDMINE_RELATIVE_URL_ROOT} != / ]]; then
     install_template ${REDMINE_USER}: redmine/config.ru ${REDMINE_INSTALL_DIR}/config.ru 0644
@@ -847,6 +856,15 @@ configure_redmine() {
   redmine_configure_incoming_email
   redmine_configure_fetch_commits
   redmine_configure_backups
+
+  update_template ${REDMINE_SCM_CONFIG} \
+    REDMINE_SCM_DIR \
+    SCM_AUTO_CREATE \
+    SCM_FORCE_REPO \
+    SCM_DENY_DELETE
+
+  update_template ${REDMINE_INITIAL_SETTINGS_CONFIG} \
+    MAIL_SENDER
 
   # configure secure-cookie if using SSL/TLS
   if [[ ${REDMINE_HTTPS} == true ]]; then

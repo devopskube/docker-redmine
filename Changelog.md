@@ -1,9 +1,20 @@
 # Changelog
 
-**3.3.1-1**
+**3.3.1-3**
+- add plugins github_hook and SCM-creator
+- removed all SCM binaries except git
+- disabled all SCMs except git after initial install (by using settings.yml)
 - fork to devopskube
 - add .bumpversion.cfg and project.yml and Jenkinsfile
-- add plugins
+
+**3.3.1-2**
+- this is a non released version
+
+**3.3.1-1**
+- this is a non released version
+
+**3.3.1-0**
+- this is a non released version
 
 **3.3.1**
 - redmine: upgrade to v.3.3.1

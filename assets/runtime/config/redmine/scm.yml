@@ -1,0 +1,11 @@
+production:
+  auto_create: {{SCM_AUTO_CREATE}}
+  force_repository: {{SCM_FORCE_REPO}}
+  deny_delete: {{SCM_DENY_DELETE}}
+  git:
+    path: {{REDMINE_SCM_DIR}}
+    git: /usr/bin/git
+    options: --bare
+    update_server_info: true
+    git_ext: true
+    append: .git

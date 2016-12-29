@@ -74,6 +74,10 @@ if [[ -d ${GEM_CACHE_DIR} ]]; then
   chown -R ${REDMINE_USER}: ${REDMINE_INSTALL_DIR}/vendor/cache
 fi
 
+# install redmine SCM-Creator http://projects.andriylesyuk.com/projects/scm-creator/wiki
+exec_as_redmine git clone https://github.com/lejmr/SCM-Creator.git ${REDMINE_INSTALL_DIR}/plugins/redmine_scm
+exec_as_redmine mkdir -p ${REDMINE_DATA_DIR}/git
+
 # install redmine-github-hook (https://github.com/koppen/redmine_github_hook)
 exec_as_redmine git clone https://github.com/koppen/redmine_github_hook.git ${REDMINE_INSTALL_DIR}/plugins/redmine_github_hook
 
@@ -191,5 +195,5 @@ stderr_logfile=${REDMINE_LOG_DIR}/supervisor/%(program_name)s.log
 EOF
 
 # purge build dependencies and cleanup apt
-apt-get purge -y --auto-remove ${BUILD_DEPENDENCIES}
+DEBIAN_FRONTEND=noninteractive apt-get purge -y --auto-remove ${BUILD_DEPENDENCIES}
 rm -rf /var/lib/apt/lists/*
