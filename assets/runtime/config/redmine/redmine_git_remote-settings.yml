@@ -1,0 +1,2 @@
+git_local_path: {{REDMINE_SCM_DIR}}
+git_remote_url_prefix: ''

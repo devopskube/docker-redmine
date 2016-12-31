@@ -74,8 +74,11 @@ if [[ -d ${GEM_CACHE_DIR} ]]; then
   chown -R ${REDMINE_USER}: ${REDMINE_INSTALL_DIR}/vendor/cache
 fi
 
-# install redmine SCM-Creator http://projects.andriylesyuk.com/projects/scm-creator/wiki
-exec_as_redmine git clone https://github.com/lejmr/SCM-Creator.git ${REDMINE_INSTALL_DIR}/plugins/redmine_scm
+# install redmine git_remote https://github.com/devopskube/redmine_git_remote
+REDMINE_GIT_REMOTE_VERSION=0.0.2
+exec_as_redmine wget "https://github.com/devopskube/redmine_git_remote/archive/${REDMINE_GIT_REMOTE_VERSION}.tar.gz" -O /tmp/redmine-git-remote-${REDMINE_GIT_REMOTE_VERSION}.tar.gz
+exec_as_redmine mkdir ${REDMINE_INSTALL_DIR}/plugins/redmine_git_remote
+exec_as_redmine tar -zxf /tmp/redmine-git-remote-${REDMINE_GIT_REMOTE_VERSION}.tar.gz --strip=1 -C ${REDMINE_INSTALL_DIR}/plugins/redmine_git_remote
 exec_as_redmine mkdir -p ${REDMINE_DATA_DIR}/git
 
 # install redmine-github-hook (https://github.com/koppen/redmine_github_hook)
