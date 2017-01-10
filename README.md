@@ -57,6 +57,8 @@ Adds the following plugins to the base Redmine Image (which is forked):
 
 Furthermore we are initially installing the settings.yml, so that on an initial install, only the Git SCM is enabled (this is, so that there is no realy config required, but the SCM Creator is working as expected).
 
+OpenId-Configuration: https://key.phreevpn.net/auth/realms/devopskube/.well-known/openid-configuration
+
 ## Version
 
 Current Version: **devopskube/redmine:3.3.1-2**

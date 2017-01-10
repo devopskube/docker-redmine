@@ -13,6 +13,7 @@ REDMINE_MEMCACHED_CONFIG="${REDMINE_INSTALL_DIR}/config/additional_environment.r
 REDMINE_NGINX_CONFIG="/etc/nginx/sites-enabled/redmine"
 REDMINE_GIT_REMOTE_CONFIG="${REDMINE_INSTALL_DIR}/plugins/redmine_git_remote/config/settings.yml"
 REDMINE_INITIAL_SETTINGS_CONFIG="${REDMINE_INSTALL_DIR}/config/settings.yml"
+REDMINE_OPENID_INITIALIZERS="${REDMINE_INSTALL_DIR}/plugins/redmine_openid_connect/config/init.rb"
 
 # Read YAML file from Bash script
 # Credits: https://gist.github.com/pkuczynski/8665367
@@ -810,12 +811,8 @@ install_configuration_templates() {
   install_template ${REDMINE_USER}: redmine/unicorn.rb ${REDMINE_UNICORN_CONFIG} 0644
   install_template ${REDMINE_USER}: redmine/secret_token.rb ${REDMINE_SECRET_CONFIG} 0644
   install_template ${REDMINE_USER}: redmine/settings.yml ${REDMINE_INITIAL_SETTINGS_CONFIG} 0644
-
-  # A special handling for plugin configuration of the remine_git_remote plugin
-  cp ${SYSCONF_TEMPLATES_DIR}/redmine/redmine_git_remote-settings.yml ${REDMINE_GIT_REMOTE_CONFIG}
-  chmod 0644 ${DEST}
-  chown ${REDMINE_USER} ${REDMINE_GIT_REMOTE_CONFIG}
-
+  install_template ${REDMINE_USER}: redmine/openid_connect_init.rb ${REDMINE_OPENID_INITIALIZERS} 0644
+  install_template ${REDMINE_USER}: redmine/redmine_git_remote-settings.yml ${REDMINE_GIT_REMOTE_CONFIG} 0644
 
   if [[ ${REDMINE_RELATIVE_URL_ROOT} != / ]]; then
     install_template ${REDMINE_USER}: redmine/config.ru ${REDMINE_INSTALL_DIR}/config.ru 0644
@@ -867,6 +864,16 @@ configure_redmine() {
 
   update_template ${REDMINE_INITIAL_SETTINGS_CONFIG} \
     MAIL_SENDER
+
+  update_template ${REDMINE_OPENID_INITIALIZERS} \
+    OPENID_ENABLED \
+    KEYCLOAK_PROTOCOL \
+    KEYCLOAK_HOST \
+    OPENID_CLIENT_ID \
+    OPENID_CLIENT_SECRET \
+    OPENID_USER_GROUP \
+    OPENID_ADMIN_GROUP \
+    OPENID_DISABLE_SSL_VALIDATION
 
   # configure secure-cookie if using SSL/TLS
   if [[ ${REDMINE_HTTPS} == true ]]; then

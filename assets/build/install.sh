@@ -84,6 +84,9 @@ exec_as_redmine mkdir -p ${REDMINE_DATA_DIR}/git
 # install redmine-github-hook (https://github.com/koppen/redmine_github_hook)
 exec_as_redmine git clone https://github.com/koppen/redmine_github_hook.git ${REDMINE_INSTALL_DIR}/plugins/redmine_github_hook
 
+# install redmine_openid_connect
+exec_as_redmine git clone https://bitbucket.org/triplem74/redmine_openid_connect.git ${REDMINE_INSTALL_DIR}/plugins/redmine_openid_connect
+
 # Install redmine and above mentioned plugin(s)
 exec_as_redmine bundle install -j$(nproc) --without development test --path ${REDMINE_INSTALL_DIR}/vendor/bundle
 
