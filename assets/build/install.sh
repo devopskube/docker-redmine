@@ -74,6 +74,7 @@ if [[ -d ${GEM_CACHE_DIR} ]]; then
   chown -R ${REDMINE_USER}: ${REDMINE_INSTALL_DIR}/vendor/cache
 fi
 
+## START DEVOPSKUBE MODIFICATIONS
 # install redmine git_remote https://github.com/devopskube/redmine_git_remote
 REDMINE_GIT_REMOTE_VERSION=0.0.2
 exec_as_redmine wget "https://github.com/devopskube/redmine_git_remote/archive/${REDMINE_GIT_REMOTE_VERSION}.tar.gz" -O /tmp/redmine-git-remote-${REDMINE_GIT_REMOTE_VERSION}.tar.gz
@@ -86,8 +87,9 @@ exec_as_redmine git clone https://github.com/koppen/redmine_github_hook.git ${RE
 
 # install redmine_openid_connect
 exec_as_redmine git clone https://bitbucket.org/triplem74/redmine_openid_connect.git ${REDMINE_INSTALL_DIR}/plugins/redmine_openid_connect
+exec_as_redmine mkdir -p ${REDMINE_DATA_DIR}/git
+## END DEVOPSKUBE MODIFICATIONS
 
-# Install redmine and above mentioned plugin(s)
 exec_as_redmine bundle install -j$(nproc) --without development test --path ${REDMINE_INSTALL_DIR}/vendor/bundle
 
 # finalize redmine installation
@@ -201,5 +203,5 @@ stderr_logfile=${REDMINE_LOG_DIR}/supervisor/%(program_name)s.log
 EOF
 
 # purge build dependencies and cleanup apt
-DEBIAN_FRONTEND=noninteractive apt-get purge -y --auto-remove ${BUILD_DEPENDENCIES}
+apt-get purge -y --auto-remove ${BUILD_DEPENDENCIES}
 rm -rf /var/lib/apt/lists/*

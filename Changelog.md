@@ -1,6 +1,11 @@
 # Changelog
 
-**3.3.1-3 (WIP)**
+**WIP**
+
+**3.4.2-1**
+- version bump to latest version of redmine (3.4.2)
+
+**3.3.1-3**
 - change SCM-creator to redmine_git_remote, which is simpler
 
 **3.3.1-2**

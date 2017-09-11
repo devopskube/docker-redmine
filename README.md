@@ -61,9 +61,7 @@ OpenId-Configuration: https://key.phreevpn.net/auth/realms/devopskube/.well-know
 
 ## Version
 
-Current Version: **devopskube/redmine:3.3.1-2**
-
-*P.S.: If your installation depends on various third party plugins, please stick with 2.6.xx series to avoid breakage.*
+Current Version: **devopskube/redmine:3.4.2-1**
 
 # Contributing
 

@@ -14,6 +14,7 @@ help:
 	@echo "   3. make stop        - stop redmine"
 	@echo "   4. make logs        - view logs"
 	@echo "   5. make purge       - stop and remove the container"
+	@echo "   6. make bump        - bump the version of this container"
 
 build:
 	@docker build --tag=${IMAGE_NAME} .
