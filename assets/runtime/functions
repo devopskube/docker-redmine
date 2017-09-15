@@ -11,9 +11,11 @@ REDMINE_UNICORN_CONFIG="${REDMINE_INSTALL_DIR}/config/unicorn.rb"
 REDMINE_SECRET_CONFIG="${REDMINE_INSTALL_DIR}/config/initializers/secret_token.rb"
 REDMINE_MEMCACHED_CONFIG="${REDMINE_INSTALL_DIR}/config/additional_environment.rb"
 REDMINE_NGINX_CONFIG="/etc/nginx/sites-enabled/redmine"
+
 ## DEVOPSKUBE SPECIFIC
 REDMINE_INITIAL_SETTINGS_CONFIG="${REDMINE_INSTALL_DIR}/config/settings.yml"
 REDMINE_OPENID_INITIALIZERS="${REDMINE_INSTALL_DIR}/plugins/redmine_openid_connect/config/init.rb"
+REDMINE_GIT_REMOTE_CONFIG="${REDMINE_INSTALL_DIR}/plugins/redmine_git_remote/config/settings.yml"
 
 # Read YAML file from Bash script
 # Credits: https://gist.github.com/pkuczynski/8665367
@@ -748,6 +750,8 @@ install_configuration_templates() {
   install_template ${REDMINE_USER}: redmine/secret_token.rb ${REDMINE_SECRET_CONFIG} 0644
 
 ##BEGIN DEVOPSKUBE
+  install_template ${REDMINE_USER}: redmine/settings.yml ${REDMINE_INITIAL_SETTINGS_CONFIG} 0640
+
   install_template ${REDMINE_USER}: redmine/openid_connect_init.rb ${REDMINE_OPENID_INITIALIZERS} 0644
   install_template ${REDMINE_USER}: redmine/redmine_git_remote-settings.yml ${REDMINE_GIT_REMOTE_CONFIG} 0644
 ##END DEVOPSKUBE

@@ -12,7 +12,8 @@ ENV RUBY_VERSION=2.3 \
 ENV REDMINE_INSTALL_DIR="${REDMINE_HOME}/redmine" \
     REDMINE_DATA_DIR="${REDMINE_HOME}/data" \
     REDMINE_BUILD_DIR="${REDMINE_CACHE_DIR}/build" \
-    REDMINE_RUNTIME_DIR="${REDMINE_CACHE_DIR}/runtime"
+    REDMINE_RUNTIME_DIR="${REDMINE_CACHE_DIR}/runtime" \
+    REDMINE_CONFIG_DIR="${REDMINE_HOME}/config"
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E1DD270288B4E6030699E45FA1715D88E1DF1F24 \
  && echo "deb http://ppa.launchpad.net/git-core/ppa/ubuntu trusty main" >> /etc/apt/sources.list \
@@ -41,7 +42,7 @@ RUN chmod 755 /sbin/entrypoint.sh
 
 EXPOSE 80/tcp 443/tcp
 
-VOLUME ["${REDMINE_DATA_DIR}", "${REDMINE_LOG_DIR}"]
+VOLUME ["${REDMINE_DATA_DIR}", "${REDMINE_LOG_DIR}", "${REDMINE_CONFIG_DIR}"]
 WORKDIR ${REDMINE_INSTALL_DIR}
 ENTRYPOINT ["/sbin/entrypoint.sh"]
 CMD ["app:start"]

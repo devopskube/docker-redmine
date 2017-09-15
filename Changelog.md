@@ -1,6 +1,11 @@
 # Changelog
 
 **WIP**
+- use varible for settings.yml (hostname - right now: localhost, mail settings (footer))
+
+**3.4.2-2 (WIP)**
+- minor adjustements on settings.yml usage
+- adopt unicorn logging
 
 **3.4.2-1**
 - version bump to latest version of redmine (3.4.2)
