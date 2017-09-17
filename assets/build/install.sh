@@ -86,7 +86,8 @@ exec_as_redmine mkdir -p ${REDMINE_DATA_DIR}/git
 exec_as_redmine git clone https://github.com/koppen/redmine_github_hook.git ${REDMINE_INSTALL_DIR}/plugins/redmine_github_hook
 
 # install redmine_openid_connect
-exec_as_redmine git clone https://bitbucket.org/triplem74/redmine_openid_connect.git ${REDMINE_INSTALL_DIR}/plugins/redmine_openid_connect
+exec_as_redmine echo "Use latest version..."
+exec_as_redmine git clone https://github.com/devopskube/redmine_openid_connect.git ${REDMINE_INSTALL_DIR}/plugins/redmine_openid_connect
 exec_as_redmine mkdir -p ${REDMINE_DATA_DIR}/git
 ## END DEVOPSKUBE MODIFICATIONS
 
@@ -201,6 +202,9 @@ autorestart=true
 stdout_logfile=${REDMINE_LOG_DIR}/supervisor/%(program_name)s.log
 stderr_logfile=${REDMINE_LOG_DIR}/supervisor/%(program_name)s.log
 EOF
+
+# copy patch files to use 3.4.x version
+exec_as_redmine cp ${REDMINE_BUILD_DIR}/patch/git_adapter.rb ${REDMINE_INSTALL_DIR}/lib/redmine/scm/adapters
 
 # purge build dependencies and cleanup apt
 apt-get purge -y --auto-remove ${BUILD_DEPENDENCIES}

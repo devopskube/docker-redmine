@@ -5,14 +5,14 @@ require 'redmine_openid_connect/hooks'
 
 Redmine::Plugin.register :redmine_openid_connect do
   name 'Redmine Openid Connect plugin'
-  author 'Alfonso Juan Dillera'
+  author 'Alfonso Juan Dillera / Markus M. May'
   description 'OpenID Connect implementation for Redmine'
-  version '0.9.1'
+  version '0.9.2'
   url 'https://bitbucket.org/triplem74/redmine_openid_connect'
   author_url 'http://github.com/adillera'
 
   settings :default => {
-    :enabled => {{OPENDID_ENABLED}},
+    :enabled => {{OPENID_ENABLED}},
     :client_id => '{{OPENID_CLIENT_ID}}',
     :openid_connect_server_url => '{{KEYCLOAK_PROTOCOL}}://{{KEYCLOAK_HOST}}/auth/realms/devopskube',
     :client_secret => '{{OPENID_CLIENT_SECRET}}',

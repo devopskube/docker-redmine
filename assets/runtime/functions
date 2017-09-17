@@ -14,7 +14,7 @@ REDMINE_NGINX_CONFIG="/etc/nginx/sites-enabled/redmine"
 
 ## DEVOPSKUBE SPECIFIC
 REDMINE_INITIAL_SETTINGS_CONFIG="${REDMINE_INSTALL_DIR}/config/settings.yml"
-REDMINE_OPENID_INITIALIZERS="${REDMINE_INSTALL_DIR}/plugins/redmine_openid_connect/config/init.rb"
+REDMINE_OPENID_INITIALIZERS="${REDMINE_INSTALL_DIR}/plugins/redmine_openid_connect/init.rb"
 REDMINE_GIT_REMOTE_CONFIG="${REDMINE_INSTALL_DIR}/plugins/redmine_git_remote/config/settings.yml"
 
 # Read YAML file from Bash script
@@ -799,6 +799,9 @@ configure_redmine() {
     OPENID_USER_GROUP \
     OPENID_ADMIN_GROUP \
     OPENID_DISABLE_SSL_VALIDATION
+
+  update_template ${REDMINE_GIT_REMOTE_CONFIG} \
+    REDMINE_SCM_DIR
 ##END DEVOPSKUBE
 
   redmine_configure_database
