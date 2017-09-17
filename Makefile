@@ -22,6 +22,9 @@ build:
 release:
 	@docker build --tag=${IMAGE_NAME}:${VERSION} .
 
+push:
+	@docker push ${IMAGE_NAME}:${VERSION}	
+
 quickstart:
 	@echo "Starting redmine..."
 	@docker run --name=redmine-demo -d -p 10080:80 \

@@ -1,7 +1,7 @@
 # Changelog
 
 **WIP**
-- use varible for settings.yml (hostname - right now: localhost, mail settings (footer))
+- add push functionality to Makefile
 
 **3.4.2-2**
 - minor adjustements on settings.yml usage
