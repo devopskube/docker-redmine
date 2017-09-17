@@ -8,18 +8,18 @@ Redmine::Plugin.register :redmine_openid_connect do
   author 'Alfonso Juan Dillera / Markus M. May'
   description 'OpenID Connect implementation for Redmine'
   version '0.9.2'
-  url 'https://bitbucket.org/triplem74/redmine_openid_connect'
+  url 'https://github.com/devopskube/redmine_git_remote'
   author_url 'http://github.com/adillera'
 
   settings :default => {
-    :enabled => {{OPENID_ENABLED}},
-    :client_id => '{{OPENID_CLIENT_ID}}',
-    :openid_connect_server_url => '{{KEYCLOAK_PROTOCOL}}://{{KEYCLOAK_HOST}}/auth/realms/devopskube',
-    :client_secret => '{{OPENID_CLIENT_SECRET}}',
-    :group => '{{OPENID_USER_GROUP}}',
-    :admin_group => '{{OPENID_ADMIN_GROUP}}',
-    :dynamic_config_expiry => 86400,
-    :disable_ssl_validation => {{OPENID_DISABLE_SSL_VALIDATION}},
+    'enabled' => {{OPENID_ENABLED}},
+    'client_id' => '{{OPENID_CLIENT_ID}}',
+    'openid_connect_server_url' => '{{KEYCLOAK_PROTOCOL}}://{{KEYCLOAK_HOST}}/auth/realms/devopskube',
+    'client_secret' => '{{OPENID_CLIENT_SECRET}}',
+    'group' => '{{OPENID_USER_GROUP}}',
+    'admin_group' => '{{OPENID_ADMIN_GROUP}}',
+    'dynamic_config_expiry' => 86400,
+    'disable_ssl_validation' => {{OPENID_DISABLE_SSL_VALIDATION}},
   }, partial: 'settings/redmine_openid_connect_settings'
 end
 

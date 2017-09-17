@@ -86,9 +86,10 @@ exec_as_redmine mkdir -p ${REDMINE_DATA_DIR}/git
 exec_as_redmine git clone https://github.com/koppen/redmine_github_hook.git ${REDMINE_INSTALL_DIR}/plugins/redmine_github_hook
 
 # install redmine_openid_connect
-exec_as_redmine echo "Use latest version..."
-exec_as_redmine git clone https://github.com/devopskube/redmine_openid_connect.git ${REDMINE_INSTALL_DIR}/plugins/redmine_openid_connect
-exec_as_redmine mkdir -p ${REDMINE_DATA_DIR}/git
+REDMINE_OIC_VERSION=0.9.2
+exec_as_redmine wget "https://github.com/devopskube/redmine_openid_connect/archive/${REDMINE_OIC_VERSION}.tar.gz" -O /tmp/redmine_openid_connect-${REDMINE_OIC_VERSION}.tar.gz
+exec_as_redmine mkdir ${REDMINE_INSTALL_DIR}/plugins/redmine_openid_connect
+exec_as_redmine tar -zxf /tmp/redmine_openid_connect-${REDMINE_OIC_VERSION}.tar.gz --strip=1 -C ${REDMINE_INSTALL_DIR}/plugins/redmine_openid_connect
 ## END DEVOPSKUBE MODIFICATIONS
 
 exec_as_redmine bundle install -j$(nproc) --without development test --path ${REDMINE_INSTALL_DIR}/vendor/bundle
