@@ -40,7 +40,6 @@ else
 
   echo "Extracting..."
   exec_as_redmine tar -zxf /tmp/redmine-${REDMINE_VERSION}.tar.gz --strip=1 -C ${REDMINE_INSTALL_DIR}
-
   exec_as_redmine rm -rf /tmp/redmine-${REDMINE_VERSION}.tar.gz
 fi
 
@@ -86,10 +85,11 @@ exec_as_redmine mkdir -p ${REDMINE_DATA_DIR}/git
 exec_as_redmine git clone https://github.com/koppen/redmine_github_hook.git ${REDMINE_INSTALL_DIR}/plugins/redmine_github_hook
 
 # install redmine_openid_connect
-REDMINE_OIC_VERSION=0.9.2
+REDMINE_OIC_VERSION=0.9.3
 exec_as_redmine wget "https://github.com/devopskube/redmine_openid_connect/archive/${REDMINE_OIC_VERSION}.tar.gz" -O /tmp/redmine_openid_connect-${REDMINE_OIC_VERSION}.tar.gz
 exec_as_redmine mkdir ${REDMINE_INSTALL_DIR}/plugins/redmine_openid_connect
-exec_as_redmine tar -zxf /tmp/redmine_openid_connect-${REDMINE_OIC_VERSION}.tar.gz --strip=1 -C ${REDMINE_INSTALL_DIR}/plugins/redmine_openid_connect
+# use this only for testing
+#exec_as_redmine git clone -b develop https://github.com/devopskube/redmine_openid_connect.git ${REDMINE_INSTALL_DIR}/plugins/redmine_openid_connect
 ## END DEVOPSKUBE MODIFICATIONS
 
 exec_as_redmine bundle install -j$(nproc) --without development test --path ${REDMINE_INSTALL_DIR}/vendor/bundle
